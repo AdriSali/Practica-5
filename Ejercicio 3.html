@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear tabla</title>
+</head>
+<body>
+
+    <h1>Tabla</h1>
+    <input type="number" id="crearFilas" min="0" placeholder="Dime las filas">Crear Filas
+    <br>
+    <input type="number" id="crearColumnas" min="0" placeholder="Dime las columnas">Crear Columnas
+    <br>
+    <input type="button" onclick="tabla()" value="Crear Tabla"></input>
+
+    <h1>Eliminar celda</h1>
+    <input type="number" id="borrarFila" min="0" placeholder="Dime la fila">Fila
+    <br>
+    <input type="number" id="borrarColumna" min="0" placeholder="Dime la columna">Columna
+    <br>
+    <input type="button" onclick="eliminarCelda()" value="Eliminar celda"></input>
+
+    <script>
+
+        function tabla(){
+
+            var cuerpo = document.getElementsByTagName("body")[0];
+            
+
+            var filas = document.getElementById("crearFilas").value;
+            var columnas = document.getElementById("crearColumnas").value;
+
+            var tabla = document.createElement("table");
+            tabla.setAttribute("id","tabla")
+            tabla.setAttribute("border", "4");
+
+            for(let i=0 ; i<filas ; i++){
+
+                var crearFilas= document.createElement("tr");
+
+                for(let j=0 ; j<columnas ; j++){
+
+                    var celda = document.createElement("td");
+                    var texto = document.createTextNode("Celda: "+(i+1)+","+(j+1));
+                    celda.appendChild(texto);
+                    crearFilas.appendChild(celda);
+
+                }
+
+                tabla.appendChild(crearFilas);
+
+            }
+
+            cuerpo.appendChild(tabla);
+        }
+
+        function eliminarCelda(){
+
+            var fila = document.getElementById("borrarFila").value;
+            var columna = document.getElementById("borrarColumna").value;
+
+            var borrarCleda = document.getElementById("tabla").rows[fila-1].cells[columna-1].textContent = "";
+        }
+        
+    </script>
+    
+</body>
+</html>

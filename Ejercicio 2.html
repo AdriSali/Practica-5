@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input:invalid{
+            border-color: red; 
+            /* Esto hace que los required salgan en rojo */
+        }
+    </style>
+</head>
+<body>
+
+    <form name="myForm" id="myForm" action="" method="GET" autocomplete="on" onsubmit="return validateForm()">
+
+        Nombre<input type="text" id="nombre" placeholder="Escriba su nombre" name="nombre" maxlength="20" minlength="2" autofocus tabindex="1">
+        <br>
+        
+        <!-- Utilizo para el nombre el minlength y el maxlength -->
+
+        Apellido<input type="text" placeholder="Escriba su apellido" name="apellido" id="apellido" maxlength="20" minlength="2" tabindex="2">
+
+        <br><br>
+
+        <label for="mail">Dime tu dirección:<label><br>
+        <input type="email" id="mail" name="mail" required tabindex="3">
+
+        <br><br>
+
+        <label for="edad">Edad:</label><br>
+        <input placeholder="Escriba su edad" id="edad" name="edad" type="text" pattern="[0-9]{2}" min="10" max="90" required tabindex="4"> 
+
+        <!-- Utilizo para la edad el min y max -->
+
+        <br><br>
+
+        <label for="programas">Programas:</label><br>
+        <select style="text-align: right" name="programas" id="programas">
+            <option value="java">Java</option>
+            <option value="HTML">HTML</option>
+            <option value="python">Python</option>
+            <option value="javascript">JavaScript</option>
+        </select>
+
+
+        <br><br><br>
+
+
+        <fieldset>
+
+            <legend>Idiomas</legend>
+
+            <input type="checkbox" id="idioma1" name="idioma1" value="english" checked>
+            <label for="idioma1"> English</label><br>
+
+            <input type="checkbox" id="idioma2" name="idioma2" value="spanish" checked>
+            <label for="idioma2"> Spanish</label><br>
+
+            <input type="checkbox" id="idioma3" name="idioma3" value="german">
+            <label for="idioma3"> German</label><br>
+
+        </fieldset>
+        
+        <br><br>
+
+        
+        <label for="textarea">Escriba en el area</label><br>
+        <textarea name="textarea" id="textarea" cols="15" rows="5" placeholder="Introduce un texto..."></textarea>
+        
+        <br><br>
+
+        <label for="fecha">Dime la fecha</label><br>
+        <input type="date" name="fecha" id="fecha" placeholder="Escriba la fecha" required>
+
+        <br><br>
+        
+        <button type="submit" value="Enviar">Enviar</button>
+
+    </form>
+    
+
+    <script>
+
+        function validateForm() {
+
+            //-----------------------------------------------------------------
+            let bandera = 0;
+            
+            let x2 = document.forms["myForm"]["textarea"].value;
+
+            document.getElementById("textarea").style.borderColor = undefined;
+
+            if ((x2 == "") || (!/^[a-zA-Z ]*$/.test(x2))) {
+                document.getElementById("textarea").style.borderColor = "red"; //Valida que solo sean letras
+                bandera = 1;
+            }
+
+            //------------------------------------------------------------------
+
+            document.getElementById("apellido").style.borderColor = undefined;
+
+            let x = document.forms["myForm"]["apellido"].value;
+
+            if((x == "") || (!/^[a-zA-Z ]*$/.test(x))){
+                document.getElementById("apellido").style.borderColor="red"; //Valida que solo sean letras
+                bandera = 1;
+            }
+
+            if(bandera == 1){
+                return false;
+            }
+
+        }
+
+        const email = document.getElementById("mail");
+
+        email.addEventListener("input", function (event) {
+        if (email.validity.typeMismatch) {
+            email.setCustomValidity("Se ha introducido el correo mal"); //Sale cuando una vez has introducido mal el correo y le das al enter
+        } else {
+            email.setCustomValidity("");
+        }
+        });
+
+        const edad = document.getElementById("edad");
+
+        edad.addEventListener("keyup", function (event) {
+        if (edad.validity.typeMismatch) {
+            edad.setCustomValidity("Esta mal la edad");
+        } else {
+            edad.setCustomValidity("");
+        }
+        });
+    </script>
+</body>
+</html>
